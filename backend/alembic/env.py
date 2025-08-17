@@ -28,7 +28,7 @@ target_metadata = Base.metadata
 # ... etc.
 
 def get_url():
-    return os.getenv("DATABASE_URL", "postgresql://username:password@localhost:5432/chatbotdb")
+    return os.getenv("DATABASE_URL", "sqlite:///./chatbot.db")
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.

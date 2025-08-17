@@ -6,11 +6,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Database URL from environment variable
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://username:password@localhost:5432/chatbotdb")
+# Database URL from environment variable - defaults to SQLite for local development
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./chatbot.db")
 
-# Create engine
-engine = create_engine(DATABASE_URL)
+# Create engine with appropriate settings
+if DATABASE_URL.startswith("sqlite"):
+    engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+else:
+    engine = create_engine(DATABASE_URL)
 
 # Create session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -71,32 +71,32 @@ This will run Ollama on `http://localhost:11434`.
 
 ### ✅ 2. Setup the Database
 
-We use **PostgreSQL** and SQLAlchemy ORM.
+We use **SQLite** for local development and **PostgreSQL** for production with SQLAlchemy ORM.
 
-#### Create `.env` in `/backend`
+#### Local Development (SQLite - No setup required!)
 
-```env
-DATABASE_URL=postgresql://username:password@localhost:5432/chatbotdb
-OLLAMA_URL=http://localhost:11434
-```
+The application uses SQLite by default for local development - no database installation required!
 
-#### Install Python dependencies and setup database
+#### Setup Database Tables
 
 ```bash
-# Install Python dependencies
-pip install -r requirements.txt
-
 # Navigate to backend directory
 cd backend
 
-# Initialize Alembic (first time only)
-alembic init alembic
+# Activate virtual environment
+source venv/bin/activate
 
 # Create and run migrations
 alembic revision --autogenerate -m "Initial migration"
 alembic upgrade head
 ```
 
+#### Production (PostgreSQL)
+
+For production deployment, set the `DATABASE_URL` environment variable:
+```env
+DATABASE_URL=postgresql://user:password@host:port/database
+```
 ---
 
 ### ✅ 3. Start the Backend Server

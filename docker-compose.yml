@@ -22,11 +22,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql://chatbot_user:chatbot_password@postgres:5432/chatbotdb
+      DATABASE_URL: sqlite:///./chatbot.db
       OLLAMA_URL: http://host.docker.internal:11434
-    depends_on:
-      postgres:
-        condition: service_healthy
     volumes:
       - ./backend:/app/backend
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
