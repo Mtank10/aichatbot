@@ -32,6 +32,21 @@ A ChatGPT-style chatbot that runs completely **locally** using [Ollama](https://
 
 ## 🛠️ Local Development Setup
 
+### ✅ 0. Setup Python Virtual Environment
+
+First, set up the Python virtual environment to avoid system package conflicts:
+
+```bash
+# Run the setup script (recommended)
+cd backend && ./setup.sh
+
+# OR manually create virtual environment
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
 ### ✅ 1. Install & Run Ollama
 
 > Ollama is required to run the local LLM (`gemma3:1b`).
@@ -88,6 +103,12 @@ alembic upgrade head
 
 ```bash
 cd backend
+
+# Option 1: Use the run script (recommended)
+./run.sh
+
+# Option 2: Manual activation and run
+source venv/bin/activate
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
@@ -168,11 +189,12 @@ This will start:
 # 1. Start Ollama in a terminal
 ollama run gemma3:1b
 
-# 2. Setup & start backend
-pip install -r requirements.txt
+# 2. Setup & start backend (in another terminal)
 cd backend
+./setup.sh
+source venv/bin/activate
 alembic upgrade head
-uvicorn main:app --reload
+./run.sh
 
 # 3. Start frontend in another terminal
 cd frontend
@@ -240,6 +262,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 ## 🚨 Requirements
 
 - Python 3.11+
+- python3-venv (for virtual environments)
 - Node.js 18+
 - PostgreSQL 12+
 - Ollama with `gemma3:1b` model
